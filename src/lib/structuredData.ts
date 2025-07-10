@@ -25,13 +25,13 @@ export const projectWebsite: WithContext<WebSite> = {
 export const personSchema: WithContext<Person> = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Jesica',
-  url: 'https://jestsee.com',
+  name: 'Devin',
+  url: 'https://wyz.github.io',
   // image: `${import.meta.env.SITE}${avatar.src}`,
   sameAs: [
-    'https://www.twitter.com/jestseee',
-    'https://www.instagram.com/jest.see/',
-    'https://www.linkedin.com/in/jestsee/'
+    'https://www.twitter.com/WYZDevin',
+    'https://www.linkedin.com/in/devin-yongzhao-wu/',
+
   ],
   jobTitle: 'Software engineer'
   // worksFor: {

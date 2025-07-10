@@ -1,17 +1,17 @@
-import { GITHUB_ACCESS_TOKEN } from 'astro:env/server'
+import { ACCESS_TOKEN } from 'astro:env/server'
 import request from 'graphql-request'
 
 import { GetGithubContributions } from '@/lib/graphql'
 import type { GithubContributionData } from '@/types'
 
 const getGithubContributions = async (): Promise<GithubContributionData> => {
-  console.log('GITHUB_ACCESS_TOKEN', GITHUB_ACCESS_TOKEN)
+  console.log('ACCESS_TOKEN', ACCESS_TOKEN)
   const response = await request({
     url: 'https://api.github.com/graphql',
     document: GetGithubContributions,
     variables: { userName: 'WYZDevin' },
     requestHeaders: {
-      Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`
+      Authorization: `Bearer ${ACCESS_TOKEN}`
     }
   })
 

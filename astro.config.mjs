@@ -50,7 +50,7 @@ export default defineConfig({
       //   context: 'server',
       //   access: 'secret'
       // }),
-      GITHUB_ACCESS_TOKEN: envField.string({
+      ACCESS_TOKEN: envField.string({
         context: 'server',
         access: 'secret'
       }),
