@@ -12,24 +12,21 @@ import sitemap from '@astrojs/sitemap'
 // @ts-ignore
 import tailwind from '@astrojs/tailwind'
 // @ts-ignore
-import vercel from '@astrojs/vercel'
-// @ts-ignore
 import { defineConfig, envField } from 'astro/config'
 // @ts-ignore
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 // @ts-ignore
 import rehypeSlug from 'rehype-slug'
 
-let adapter = vercel()
+// let adapter = vercel()
 
-// @ts-ignore
-if (process.argv[3] === '--node' || process.argv[4] === '--node') {
-  adapter = node({ mode: 'standalone' })
-}
+// // @ts-ignore
+// if (process.argv[3] === '--node' || process.argv[4] === '--node') {
+//   adapter = node({ mode: 'standalone' })
+// }
 
 // https://astro.build/config
 export default defineConfig({
-  adapter,
   output: 'static',
   site: 'https://WYZDevin.github.io',
 
