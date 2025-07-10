@@ -44,8 +44,8 @@ export default defineConfig({
   env: {
     schema: {
       ACCESS_TOKEN: envField.string({
-        context: 'server',
-        access: 'secret'
+        context: 'client',
+        access: 'public'
       }),
       ENV: envField.string({
         context: 'client',
