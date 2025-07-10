@@ -22,6 +22,9 @@ const { entry } = Astro.props
 const { Content, headings } = await render(entry)
 
 const getLastUpdatedTime = client.api.github['last-updated-file']
+
+console.log('entry', entry)
+
 const { latestCommitUrl, lastUpdatedTime } = await getLastUpdatedTime
   .$get({ query: { path: `blog/${entry.id}.mdx` } })
   .then((res) => res.json())
