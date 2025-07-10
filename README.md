@@ -1,16 +1,14 @@
-# jestsee.com
+# wyz.github.io
 
 A personal website showcasing my work, built with Astro.
-Check out the live website [here](https://jestsee.com).
-
-https://github.com/user-attachments/assets/a4e8c8a1-b901-477f-9768-f2acefa5de35
+This project was modified from [jestsee's work](https://github.com/jestsee/jestsee.com). Big thanks for the wounderful template.
 
 ## 📚 Tech Stack
 
 - Framework: [Astro](https://astro.build/) with TypeScript
 - Styling: [Tailwind CSS](https://tailwindcss.com/)
 - Content: MDX
-- Hosting: Deployed on [Vercel](https://vercel.com/)
+- Hosting: Deployed on Github Pages
 
 ## 🚀 How to Run
 
@@ -21,11 +19,11 @@ https://github.com/user-attachments/assets/a4e8c8a1-b901-477f-9768-f2acefa5de35
    ```
 3. Install the dependency
    ```sh
-   pnpm i
+   yarn
    ```
 4. Run the development server
    ```sh
-   pnpm dev
+   yarn dev
    ```
 5. Open your browser and navigate to http://localhost:4321.
 

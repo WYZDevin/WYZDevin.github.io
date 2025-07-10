@@ -8,6 +8,8 @@ const getLastUpdatedTime = async (
   owner: string,
   repository: string
 ): Promise<GithubRepositoryLastUpdated> => {
+
+
   const response = await request({
     url: 'https://api.github.com/graphql',
     document: GetRepoInfo,
@@ -16,7 +18,6 @@ const getLastUpdatedTime = async (
       Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`
     }
   })
-
   return (response as any).repository
 }
 

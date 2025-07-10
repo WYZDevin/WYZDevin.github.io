@@ -5,10 +5,11 @@ import { GetGithubContributions } from '@/lib/graphql'
 import type { GithubContributionData } from '@/types'
 
 const getGithubContributions = async (): Promise<GithubContributionData> => {
+  console.log('GITHUB_ACCESS_TOKEN', GITHUB_ACCESS_TOKEN)
   const response = await request({
     url: 'https://api.github.com/graphql',
     document: GetGithubContributions,
-    variables: { userName: 'jestsee' },
+    variables: { userName: 'WYZDevin' },
     requestHeaders: {
       Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`
     }

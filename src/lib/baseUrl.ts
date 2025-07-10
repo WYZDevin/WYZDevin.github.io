@@ -1,12 +1,13 @@
 import {
-  // PUBLIC_VERCEL_ENV,
-  // PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
-  // PUBLIC_VERCEL_URL
+  ENV,
+  PROD_URL,
+  DEV_URL
 } from 'astro:env/client'
 
 const url =
-  PUBLIC_VERCEL_ENV === 'production'
-    ? PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
-    : PUBLIC_VERCEL_URL
-
-export const BASE_URL = url ? `https://${url}` : 'http://localhost:4321'
+  ENV === 'prod'
+    ? PROD_URL
+    : DEV_URL
+const BASE_URL = url ? `${url}` : 'http://localhost:4321'
+// console.log('BASE_URL', BASE_URL)
+export { BASE_URL }

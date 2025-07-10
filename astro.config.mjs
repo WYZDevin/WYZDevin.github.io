@@ -71,22 +71,22 @@ export default defineConfig({
       //   access: 'secret'
       // }),
 
-      // PUBLIC_VERCEL_ENV: envField.string({
-      //   context: 'client',
-      //   access: 'public',
-      //   optional: true,
-      //   default: 'development'
-      // }),
-      // PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: envField.string({
-      //   context: 'client',
-      //   access: 'public',
-      //   optional: true
-      // }),
-      // PUBLIC_VERCEL_URL: envField.string({
-      //   context: 'client',
-      //   access: 'public',
-      //   optional: true
-      // })
+      ENV: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+        default: 'development'
+      }),
+      PROD_URL: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true
+      }),
+      DEV_URL: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true
+      })
     }
   },
 

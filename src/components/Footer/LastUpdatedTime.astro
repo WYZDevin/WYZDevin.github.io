@@ -10,10 +10,11 @@ const response = await client.api.github['repo-info'][':owner'][
   ':repository'
 ].$get({
   param: {
-    owner: 'jestsee',
-    repository: 'jestsee.com'
+    owner: 'WYZDevin',
+    repository: 'wyz.github.io'
   }
 })
+
 const data = response.status === 200 ? await response.json() : null
 
 if (!data) return
@@ -28,7 +29,7 @@ const { class: className } = Astro.props
 {
   data ? (
     <p class:list={['text-xs min-[961px]:self-end', className]}>
-      Last updated by Jesica <br class='xs:hidden' /> on {formattedDate} UTC+7
+      Last updated by Devin <br class='xs:hidden' /> on {formattedDate} UTC+7
     </p>
   ) : (
     // TODO: handle error
