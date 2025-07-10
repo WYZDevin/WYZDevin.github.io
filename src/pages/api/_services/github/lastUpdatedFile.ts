@@ -9,7 +9,7 @@ const getLastUpdatedTimeByFile = async (
   filePath: string
 ): Promise<LastUpdatedTimeData> => {
 
-  const API_URL = `https://api.github.com/repos/WYZDevin/wyzdevin.github.io/commits?`
+  const API_URL = `https://api.github.com/repos/WYZDevin/WYZDevin.github.io/commits?`
 
   const params = new URLSearchParams({
     path: `src/content/${filePath}`,
