@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from 'astro'
 import { getCollection, render } from 'astro:content'
 import readingTime from 'reading-time'
-import { ACCESS_TOKEN } from 'astro:env/server'
+import { ACCESS_TOKEN } from 'astro:env/client'
 
 import ContentWrapper from '@/components/ContentWrapper.astro'
 import BlogLayout from '@/layouts/BlogLayout'
