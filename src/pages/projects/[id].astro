@@ -7,7 +7,7 @@ import type { BreadcrumbList, WithContext } from 'schema-dts'
 import ContentWrapper from '@/components/ContentWrapper.astro'
 import ProjectLayout from '@/layouts/ProjectLayout'
 import { getProjectSchema, projectWebsite } from '@/lib/structuredData'
-import { ACCESS_TOKEN } from 'astro:env/client'
+import { ACCESS_TOKEN } from 'astro:env/server'
 
 interface Props extends InferGetStaticPropsType<typeof getStaticPaths> {}
 
