@@ -2,7 +2,6 @@
 import type { GetStaticPaths } from 'astro'
 import { getCollection, render } from 'astro:content'
 import readingTime from 'reading-time'
-import { PUBLIC_ACCESS_TOKEN } from 'astro:env/client'
 
 import ContentWrapper from '@/components/ContentWrapper.astro'
 import BlogLayout from '@/layouts/BlogLayout'
@@ -24,7 +23,7 @@ const getLastUpdatedTimeByFile = async (
   }).toString()
 
   const response = await fetch(API_URL + params, {
-    headers: { Authorization: `Bearer ${PUBLIC_ACCESS_TOKEN}` }
+    headers: { Authorization: `Bearer ${import.meta.env.PUBLIC_ACCESS_TOKEN}` }
   })
 
   const [data] = await response.json()

@@ -41,30 +41,30 @@ export default defineConfig({
     defaultStrategy: 'load'
   },
 
-  env: {
-    schema: {
-      PUBLIC_ACCESS_TOKEN: envField.string({
-        context: 'client',
-        access: 'public'
-      }),
-      PUBLIC_ENV: envField.string({
-        context: 'client',
-        access: 'public',
-        optional: true,
-        default: 'development'
-      }),
-      PUBLIC_PROD_URL: envField.string({
-        context: 'client',
-        access: 'public',
-        optional: true
-      }),
-      PUBLIC_DEV_URL: envField.string({
-        context: 'client',
-        access: 'public',
-        optional: true
-      })
-    }
-  },
+  // env: {
+  //   schema: {
+  //     PUBLIC_ACCESS_TOKEN: envField.string({
+  //       context: 'client',
+  //       access: 'public'
+  //     }),
+  //     PUBLIC_ENV: envField.string({
+  //       context: 'client',
+  //       access: 'public',
+  //       optional: true,
+  //       default: 'development'
+  //     }),
+  //     PUBLIC_PROD_URL: envField.string({
+  //       context: 'client',
+  //       access: 'public',
+  //       optional: true
+  //     }),
+  //     PUBLIC_DEV_URL: envField.string({
+  //       context: 'client',
+  //       access: 'public',
+  //       optional: true
+  //     })
+  //   }
+  // },
 
   vite: {
     ssr: {

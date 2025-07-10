@@ -7,7 +7,6 @@ import type { BreadcrumbList, WithContext } from 'schema-dts'
 import ContentWrapper from '@/components/ContentWrapper.astro'
 import ProjectLayout from '@/layouts/ProjectLayout'
 import { getProjectSchema, projectWebsite } from '@/lib/structuredData'
-import { PUBLIC_ACCESS_TOKEN } from 'astro:env/client'
 
 interface Props extends InferGetStaticPropsType<typeof getStaticPaths> {}
 
@@ -28,7 +27,7 @@ const getLastUpdatedTimeByFile = async (
   }).toString()
 
   const response = await fetch(API_URL + params, {
-    headers: { Authorization: `Bearer ${PUBLIC_ACCESS_TOKEN}` }
+    headers: { Authorization: `Bearer ${import.meta.env.PUBLIC_ACCESS_TOKEN}` }
   })
 
   const [data] = await response.json()

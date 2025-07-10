@@ -1,5 +1,4 @@
 ---
-import { PUBLIC_ACCESS_TOKEN } from 'astro:env/client'
 import request from 'graphql-request'
 import { GetGithubContributions } from '@/lib/graphql'
 import type { GithubContributionData } from '@/types'
@@ -13,7 +12,7 @@ const getGithubContributions = async (): Promise<GithubContributionData> => {
     document: GetGithubContributions,
     variables: { userName: 'WYZDevin' },
     requestHeaders: {
-      Authorization: `Bearer ${PUBLIC_ACCESS_TOKEN}`
+      Authorization: `Bearer ${import.meta.env.PUBLIC_ACCESS_TOKEN}`
     }
   })
 
