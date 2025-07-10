@@ -26,7 +26,7 @@ export const personSchema: WithContext<Person> = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Devin',
-  url: 'https://wyz.github.io',
+  url: 'https://wyzdevin.github.io',
   // image: `${import.meta.env.SITE}${avatar.src}`,
   sameAs: [
     'https://www.twitter.com/WYZDevin',

@@ -1,4 +1,4 @@
-# wyz.github.io
+# wyzdevin.github.io
 
 A personal website showcasing my work, built with Astro.
 This project was modified from [jestsee's work](https://github.com/jestsee/jestsee.com). Big thanks for the wounderful template.
