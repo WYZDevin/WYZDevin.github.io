@@ -8,7 +8,6 @@ on:
 permissions:
   contents: read
   pages: write
-  id-token: write
 
 jobs:
   build:
@@ -31,7 +30,7 @@ jobs:
           node-version: 24.4.0  # Ensure compatibility with your Node.js version
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          ENV: ${{ secrets.ACCESS_TOKEN }}
+          ENV: ${{ secrets.ENV }}
           PROD_URL: ${{ secrets.PROD_URL }}
           DEV_URL: ${{ secrets.DEV_URL }}
 
