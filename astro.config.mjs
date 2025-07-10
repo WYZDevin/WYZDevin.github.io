@@ -43,22 +43,22 @@ export default defineConfig({
 
   env: {
     schema: {
-      ACCESS_TOKEN: envField.string({
+      PUBLIC_ACCESS_TOKEN: envField.string({
         context: 'client',
         access: 'public'
       }),
-      ENV: envField.string({
+      PUBLIC_ENV: envField.string({
         context: 'client',
         access: 'public',
         optional: true,
         default: 'development'
       }),
-      PROD_URL: envField.string({
+      PUBLIC_PROD_URL: envField.string({
         context: 'client',
         access: 'public',
         optional: true
       }),
-      DEV_URL: envField.string({
+      PUBLIC_DEV_URL: envField.string({
         context: 'client',
         access: 'public',
         optional: true

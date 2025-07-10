@@ -1,5 +1,5 @@
 ---
-import { ACCESS_TOKEN } from 'astro:env/client'
+import { PUBLIC_ACCESS_TOKEN } from 'astro:env/client'
 import request from 'graphql-request'
 import { GetRepoInfo } from '@/lib/graphql'
 import { formatDateByTimeZone } from '@/lib/utils'
@@ -19,7 +19,7 @@ const getLastUpdatedTime = async (
     document: GetRepoInfo,
     variables: { username: owner, repositoryName: repository },
     requestHeaders: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`
+      Authorization: `Bearer ${PUBLIC_ACCESS_TOKEN}`
     }
   })
   return (response as any).repository

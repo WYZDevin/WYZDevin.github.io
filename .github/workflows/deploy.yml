@@ -30,10 +30,10 @@ jobs:
         with:
           node-version: 24.4.0  # Ensure compatibility with your Node.js version
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          ENV: ${{ secrets.ENV }}
-          PROD_URL: ${{ secrets.PROD_URL }}
-          DEV_URL: ${{ secrets.DEV_URL }}
+          PUBLIC_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          PUBLIC_ENV: ${{ secrets.ENV }}
+          PUBLIC_PROD_URL: ${{ secrets.PROD_URL }}
+          PUBLIC_DEV_URL: ${{ secrets.DEV_URL }}
 
   deploy:
     needs: build
