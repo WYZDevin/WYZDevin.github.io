@@ -2,10 +2,38 @@
 import type { GetStaticPaths } from 'astro'
 import { getCollection, render } from 'astro:content'
 import readingTime from 'reading-time'
+import { ACCESS_TOKEN } from 'astro:env/server'
 
 import ContentWrapper from '@/components/ContentWrapper.astro'
 import BlogLayout from '@/layouts/BlogLayout'
-import client from '@/lib/client'
+
+interface LastUpdatedTimeData {
+  lastUpdatedTime: string
+  latestCommitUrl: string
+}
+
+// Fetch last updated time at build time
+const getLastUpdatedTimeByFile = async (
+  filePath: string
+): Promise<LastUpdatedTimeData> => {
+  const API_URL = `https://api.github.com/repos/WYZDevin/WYZDevin.github.io/commits?`
+
+  const params = new URLSearchParams({
+    path: `src/content/${filePath}`,
+    per_page: '1'
+  }).toString()
+
+  const response = await fetch(API_URL + params, {
+    headers: { Authorization: `Bearer ${ACCESS_TOKEN}` }
+  })
+
+  const [data] = await response.json()
+
+  return {
+    lastUpdatedTime: data.commit.committer.date,
+    latestCommitUrl: data.html_url
+  }
+}
 
 export const getStaticPaths = (async () => {
   const blogEntries = await getCollection('blog')
@@ -21,13 +49,16 @@ export const getStaticPaths = (async () => {
 const { entry } = Astro.props
 const { Content, headings } = await render(entry)
 
-const getLastUpdatedTime = client.api.github['last-updated-file']
+let latestCommitUrl = ''
+let lastUpdatedTime = ''
 
-console.log('entry', entry)
-
-const { latestCommitUrl, lastUpdatedTime } = await getLastUpdatedTime
-  .$get({ query: { path: `blog/${entry.id}.mdx` } })
-  .then((res) => res.json())
+try {
+  const data = await getLastUpdatedTimeByFile(`blog/${entry.id}.mdx`)
+  latestCommitUrl = data.latestCommitUrl
+  lastUpdatedTime = data.lastUpdatedTime
+} catch (error) {
+  console.error('Failed to fetch last updated time:', error)
+}
 
 const { minutes } = readingTime(entry.body!)
 ---

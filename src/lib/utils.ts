@@ -1,6 +1,4 @@
 import { type ClassValue, clsx } from 'clsx'
-import type { ClientResponse } from 'hono/client'
-import type { StatusCode } from 'hono/utils/http-status'
 import { twMerge } from 'tailwind-merge'
 
 export const cn = (...inputs: ClassValue[]) => {
@@ -53,15 +51,7 @@ export const formatNumber = (value: number): string => {
   return formatter.format(value)
 }
 
-export const fetcher =
-  <T>(fn: () => Promise<ClientResponse<T, StatusCode, 'json'>>) =>
-  () =>
-    fn().then((res) => {
-      if (res.status !== 200) {
-        throw new Error('Failed to fetch data')
-      }
-      return res.json()
-    })
+
 
 export const catchError = async <T>(
   promise: Promise<T>

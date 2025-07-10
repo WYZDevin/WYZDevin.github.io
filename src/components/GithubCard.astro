@@ -1,8 +1,10 @@
 ---
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-
-import client from '@/lib/client'
+import { ACCESS_TOKEN } from 'astro:env/server'
+import request from 'graphql-request'
+import { GetRepoInfo } from '@/lib/graphql'
+import type { GithubRepositoryLastUpdated } from '@/types'
 
 import { Github } from './icons/Github'
 import Link from './Link'
@@ -17,10 +19,28 @@ dayjs.extend(relativeTime)
 
 const { owner, repository, class: className } = Astro.props
 
-const response = await client.api.github['repo-info'][':owner'][
-  ':repository'
-].$get({ param: { owner, repository } })
-const data = response.status === 200 ? await response.json() : null
+// Fetch repo info at build time
+const getLastUpdatedTime = async (
+  owner: string,
+  repository: string
+): Promise<GithubRepositoryLastUpdated> => {
+  const response = await request({
+    url: 'https://api.github.com/graphql',
+    document: GetRepoInfo,
+    variables: { username: owner, repositoryName: repository },
+    requestHeaders: {
+      Authorization: `Bearer ${ACCESS_TOKEN}`
+    }
+  })
+  return (response as any).repository
+}
+
+let data = null
+try {
+  data = await getLastUpdatedTime(owner, repository)
+} catch (error) {
+  console.error('Failed to fetch repo info:', error)
+}
 
 if (!data) return
 

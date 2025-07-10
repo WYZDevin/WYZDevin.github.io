@@ -6,10 +6,38 @@ import type { BreadcrumbList, WithContext } from 'schema-dts'
 
 import ContentWrapper from '@/components/ContentWrapper.astro'
 import ProjectLayout from '@/layouts/ProjectLayout'
-import client from '@/lib/client'
 import { getProjectSchema, projectWebsite } from '@/lib/structuredData'
+import { ACCESS_TOKEN } from 'astro:env/server'
 
 interface Props extends InferGetStaticPropsType<typeof getStaticPaths> {}
+
+interface LastUpdatedTimeData {
+  lastUpdatedTime: string
+  latestCommitUrl: string
+}
+
+// Fetch last updated time at build time
+const getLastUpdatedTimeByFile = async (
+  filePath: string
+): Promise<LastUpdatedTimeData> => {
+  const API_URL = `https://api.github.com/repos/WYZDevin/WYZDevin.github.io/commits?`
+
+  const params = new URLSearchParams({
+    path: `src/content/${filePath}`,
+    per_page: '1'
+  }).toString()
+
+  const response = await fetch(API_URL + params, {
+    headers: { Authorization: `Bearer ${ACCESS_TOKEN}` }
+  })
+
+  const [data] = await response.json()
+
+  return {
+    lastUpdatedTime: data.commit.committer.date,
+    latestCommitUrl: data.html_url
+  }
+}
 
 export const getStaticPaths = (async () => {
   const projectEntries = await getCollection('projects')
@@ -23,10 +51,16 @@ export const getStaticPaths = (async () => {
 const { entry } = Astro.props
 const { Content, headings } = await render(entry)
 
-const getLastUpdatedTime = client.api.github['last-updated-file']
-const { latestCommitUrl, lastUpdatedTime } = await getLastUpdatedTime
-  .$get({ query: { path: `projects/${entry.id}.mdx` } })
-  .then((res) => res.json())
+let latestCommitUrl = ''
+let lastUpdatedTime = ''
+
+try {
+  const data = await getLastUpdatedTimeByFile(`projects/${entry.id}.mdx`)
+  latestCommitUrl = data.latestCommitUrl
+  lastUpdatedTime = data.lastUpdatedTime
+} catch (error) {
+  console.error('Failed to fetch last updated time:', error)
+}
 
 const { minutes, words } = readingTime(entry.body!)
 

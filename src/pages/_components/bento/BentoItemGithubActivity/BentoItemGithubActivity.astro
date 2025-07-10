@@ -1,15 +1,45 @@
 ---
-import client from '@/lib/client'
+import { ACCESS_TOKEN } from 'astro:env/server'
+import request from 'graphql-request'
+import { GetGithubContributions } from '@/lib/graphql'
+import type { GithubContributionData } from '@/types'
 
 import BentoGithubActivityChart from './BentoItemGithubActivityChart'
 
-console.log('client', client)
-const response = await client.api.github.contributions.$get()
-console.log('response', response)
-const data = response.status === 200 ? await response.json() : null
+// Fetch GitHub contributions data at build time
+const getGithubContributions = async (): Promise<GithubContributionData> => {
+  const response = await request({
+    url: 'https://api.github.com/graphql',
+    document: GetGithubContributions,
+    variables: { userName: 'WYZDevin' },
+    requestHeaders: {
+      Authorization: `Bearer ${ACCESS_TOKEN}`
+    }
+  })
 
-console.log('data', data)
-Astro.response.headers.set('Cache-Control', 'public, max-age=86400')
+  const parsedResponse = (response as any).user.contributionsCollection
+    .contributionCalendar
+
+  return {
+    lastPushedAt: (response as any).user.repositories.nodes[0].pushedAt,
+    totalContributions: parsedResponse.totalContributions,
+    contributions: parsedResponse.weeks.flatMap((week: any) => {
+      return week.contributionDays.map((day: any) => {
+        return {
+          count: day.contributionCount,
+          date: day.date.replace(/-/g, '/')
+        }
+      })
+    })
+  }
+}
+
+let data = null
+try {
+  data = await getGithubContributions()
+} catch (error) {
+  console.error('Failed to fetch GitHub contributions:', error)
+}
 
 ---
 

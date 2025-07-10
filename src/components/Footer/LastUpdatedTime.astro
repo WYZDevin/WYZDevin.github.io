@@ -1,28 +1,41 @@
 ---
-import client from '@/lib/client'
+import { ACCESS_TOKEN } from 'astro:env/server'
+import request from 'graphql-request'
+import { GetRepoInfo } from '@/lib/graphql'
 import { formatDateByTimeZone } from '@/lib/utils'
+import type { GithubRepositoryLastUpdated } from '@/types'
 
 interface Props {
   class?: string
 }
 
-const response = await client.api.github['repo-info'][':owner'][
-  ':repository'
-].$get({
-  param: {
-    owner: 'WYZDevin',
-    repository: 'WYZDevin.github.io'
-  }
-})
+// Fetch repo info at build time
+const getLastUpdatedTime = async (
+  owner: string,
+  repository: string
+): Promise<GithubRepositoryLastUpdated> => {
+  const response = await request({
+    url: 'https://api.github.com/graphql',
+    document: GetRepoInfo,
+    variables: { username: owner, repositoryName: repository },
+    requestHeaders: {
+      Authorization: `Bearer ${ACCESS_TOKEN}`
+    }
+  })
+  return (response as any).repository
+}
 
-const data = response.status === 200 ? await response.json() : null
+let data = null
+try {
+  data = await getLastUpdatedTime('WYZDevin', 'WYZDevin.github.io')
+} catch (error) {
+  console.error('Failed to fetch repo info:', error)
+}
 
 if (!data) return
 
 const date = new Date(data.pushedAt)
-
 const formattedDate = formatDateByTimeZone(date)
-
 const { class: className } = Astro.props
 ---
 

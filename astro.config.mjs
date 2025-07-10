@@ -43,31 +43,10 @@ export default defineConfig({
 
   env: {
     schema: {
-      // MAPTILER_API_KEY: envField.string({
-      //   context: 'server',
-      //   access: 'secret'
-      // }),
       ACCESS_TOKEN: envField.string({
         context: 'server',
         access: 'secret'
       }),
-      // SPOTIFY_CLIENT_ID: envField.string({
-      //   context: 'server',
-      //   access: 'secret'
-      // }),
-      // SPOTIFY_CLIENT_SECRET: envField.string({
-      //   context: 'server',
-      //   access: 'secret'
-      // }),
-      // SPOTIFY_REFRESH_TOKEN: envField.string({
-      //   context: 'server',
-      //   access: 'secret'
-      // }),
-      // MONKEYTYPE_API_KEY: envField.string({
-      //   context: 'server',
-      //   access: 'secret'
-      // }),
-
       ENV: envField.string({
         context: 'client',
         access: 'public',
