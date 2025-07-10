@@ -31,7 +31,7 @@ if (process.argv[3] === '--node' || process.argv[4] === '--node') {
 export default defineConfig({
   adapter,
   output: 'static',
-  site: 'https://wyz.github.io',
+  site: '',
 
   markdown: {
     shikiConfig: {
